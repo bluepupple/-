@@ -20,8 +20,12 @@
 static int board_nr;
 static int food_nr;
 static int festival_nr;
+static int player_nr;
 
-
+static int player_credit[MAX_PLAYER];
+static int player_energy[MAX_PLAYER];
+static int player_position[MAX_PLAYER];
+static char player_name[MAX_PLAYER][MAX_CHARNAME];
 
 //function prototypes
 #if 0
@@ -37,7 +41,41 @@ void printGrades(int player); //print all the grade history of the player
 #endif
 
 
+void generatePlayers(int n, int initEnergy)
+{
+    int i;
 
+    for(i=0,i<n;i++)
+    {
+        printf("%i'th player name:");
+        scanf("%s", &player_name[i][0]);
+        player_credit[i] = 0;
+        player_energy[i] = initEnergy;
+        player_position[i] = 0;
+        //
+    }
+}
+
+
+void printGrades(int player);
+{
+    int i;
+   for(i=0,i<player_nr;i++)
+    {
+        printf("%s credit : %i\n", player_name[i], plater_credit[i]);
+    }
+}
+
+void goForward(int player, int step);
+{
+    int i;
+    for(i=0,i<step;i++)
+    {
+        player_position[player] = (player_position[player] +1)%board_nr
+        printf("%s->", smmObj_getBoardName(player_position[player]));
+    }
+    //player_position[player] += step;
+}
 
 int rolldie(int player)
 {
@@ -75,6 +113,7 @@ int main(int argc, const char * argv[]) {
     int type;
     int credit;
     int energy;
+    int pos = 0;
     
     board_nr = 0;
     food_nr = 0;
@@ -93,15 +132,16 @@ int main(int argc, const char * argv[]) {
     }
     
     printf("Reading board component......\n");
-    while () //read a node parameter set
+    while (4 == fscanf(fp, "%s %i %i %i", name, &type, %credit, %energy)) //read a node parameter set
     {
         //store the parameter set
+        smmObj_genNode[name, type, credit, energy];
     }
     fclose(fp);
     printf("Total number of board nodes : %i\n", board_nr);
     
     
-    
+    #if 
     //2. food card config 
     if ((fp = fopen(FOODFILEPATH,"r")) == NULL)
     {
@@ -133,18 +173,23 @@ int main(int argc, const char * argv[]) {
     }
     fclose(fp);
     printf("Total number of festival cards : %i\n", festival_nr);
-    
+    #endif
     
     
     //2. Player configuration ---------------------------------------------------------------------------------
-    /*
+    
     do
     {
         //input player number to player_nr
+        printf("Input Player no.:");
+        scanf("%i", &player_nr);
+
+        fflush(stdin);
     }
-    while ();
-    generatePlayers();
-    */
+    while (player < 0 || player > MAX_PLAYER);
+    generatePlayers(player_nr, );
+    
+    
     
     //3. SM Marble game starts ---------------------------------------------------------------------------------
     while () //is anybody graduated?
@@ -155,10 +200,19 @@ int main(int argc, const char * argv[]) {
         //printPlayerStatus();
         
         //4-2. die rolling (if not in experiment)
+        die_result = rolldie(); 
+        pos = pos + die_result;
+
+        printf("node %i : %s, %i, %i, %i\n",
+            smmObj_getBoardName(pos),
+            smmObj_getBoardType(pos),
+            smmObj_getBoardCredit(pos),
+            smmObj_getBoardEnergy(pos));
+
         
         
         //4-3. go forward
-        //goForward();
+        goForward();
 
 		//4-4. take action at the destination node of the board
         //actionNode();
