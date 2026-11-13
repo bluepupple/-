@@ -29,14 +29,27 @@
     C+,
     C0,
     C-
-*/s
+*/
 
 
 
 //object generation
-int smmObj_genNode(void);
+void smmObj_genNode(char*name, int type, int credit, int energy);
+
 
 //member retrieving
+char* smmObj_getBoardName(int idx)
+char* smmObj_getBoardType(int idx)
+char* smmObj_getBoardCredit(int idx)
+char* smmObj_getBoardEnergy(int idx)
+
+
+//element to string
+char* smmObj_getNodeName(int type)
+char* smmObj_getNodeName(int grade)
+{
+    return smmGradeName[grade];
+}
 
 
 //element to string
